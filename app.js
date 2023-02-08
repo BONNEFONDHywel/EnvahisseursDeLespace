@@ -1,6 +1,6 @@
 const grid = document.querySelector('.grille');
 var playerPlace = 389;
-var playerLaser = playerPlace - 20;
+var playerLaser = playerPlace;
 var width;
 var height;
 
@@ -19,12 +19,11 @@ const laser = Array.from(document.querySelectorAll('.grille div'));
 
 function moveLaser() {
     laser[playerLaser].classList.add('laser');
-    while (playerLaser > 9) {
+    while (playerLaser > 20) {
         laser[playerLaser].classList.remove('laser');
         playerLaser -= 20;
         laser[playerLaser].classList.add('laser');
     }
-    laser[playerLaser].classList.remove('laser');
 }
 
 document.addEventListener("keydown", function(event) {
@@ -33,14 +32,14 @@ document.addEventListener("keydown", function(event) {
 
         case "ArrowLeft":
 
-            moveLaser();
-
             player[playerPlace].classList.remove('tireur');
             playerPlace -= 1;
+            playerLaser -= 1;
 
             if (playerPlace < 340 || playerPlace == 359 || playerPlace == 379) {
 
                 playerPlace += 1;
+                playerLaser += 1;
 
             };
 
@@ -51,10 +50,12 @@ document.addEventListener("keydown", function(event) {
 
             player[playerPlace].classList.remove('tireur');
             playerPlace += 1;
+            playerLaser += 1;
 
             if (playerPlace > 399 || playerPlace == 360 || playerPlace == 380) {
 
                 playerPlace -= 1;
+                playerLaser -= 1;
 
             };
 
@@ -65,10 +66,12 @@ document.addEventListener("keydown", function(event) {
 
             player[playerPlace].classList.remove('tireur');
             playerPlace -= 20;
+            playerLaser -= 20;
 
             if (playerPlace < 340) {
 
                 playerPlace += 20;
+                playerLaser += 20;
 
             };
 
@@ -79,14 +82,20 @@ document.addEventListener("keydown", function(event) {
 
             player[playerPlace].classList.remove('tireur');
             playerPlace += 20;
+            playerLaser += 20;
 
             if (playerPlace > 399) {
 
                 playerPlace -= 20;
+                playerLaser -= 20;
             };
 
             player[playerPlace].classList.add('tireur');
             break;
+
+        case "Space":
+
+            moveLaser();
 
     };
 
