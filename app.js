@@ -8,7 +8,7 @@ for (var i = 0; i < 400 ; i++) {
 
     const grids = document.createElement('div');
     grid.appendChild(grids);
-    
+
 };
 
 const grille = Array.from(document.querySelectorAll('.grille div'));
@@ -191,4 +191,4 @@ function MoveAlien() {
     }
 }
 
-let aliensId = setInterval(MoveAlien, 800);
+let aliensId = setInterval(MoveAlien, 800)
