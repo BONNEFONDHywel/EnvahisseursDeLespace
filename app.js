@@ -177,7 +177,7 @@ function MoveAlien() {
             direction = "left";
             setTimeout(() => {
                 AlienDown();
-            }, 800);
+            }, 400);
         }
 
     } else {
@@ -186,7 +186,7 @@ function MoveAlien() {
             direction = "right";
             setTimeout(() => {
                 AlienDown();
-            }, 800);
+            }, 400);
         }
     }
 }
