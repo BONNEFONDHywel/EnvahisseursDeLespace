@@ -24,7 +24,7 @@ function shootLaser() {
             grille[i].classList.remove('laser');
             laserEn = i - width;
 
-            if (laserEn > 0) {
+            if (laserEn > -1) {
 
                 grille[laserEn].classList.add('laser');
 
