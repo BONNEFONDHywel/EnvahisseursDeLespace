@@ -1,8 +1,8 @@
 const grid = document.querySelector('.grille');
-var playerPlace = 389;
-var playerLaser = playerPlace - 20;
-var width;
-var height;
+let playerPlace = 389;
+let playerLaser = playerPlace;
+var width = 20;
+var height = 20;
 
 for (var i = 0; i < 400 ; i++) {
 
@@ -11,9 +11,9 @@ for (var i = 0; i < 400 ; i++) {
 
 };
 
-const player = Array.from(document.querySelectorAll('.grille div'));
+const grille = Array.from(document.querySelectorAll('.grille div'));
 
-player[playerPlace].classList.add('tireur');
+grille[playerPlace].classList.add('tireur');
 
 /* Ennemis */
 
@@ -37,15 +37,26 @@ draw()
 /* Laser */
 const laser = Array.from(document.querySelectorAll('.grille div'));
 
-function moveLaser() {
-    laser[playerLaser].classList.add('laser');
-    while (playerLaser > 9) {
-        laser[playerLaser].classList.remove('laser');
-        playerLaser -= 20;
-        laser[playerLaser].classList.add('laser');
-    }
-    laser[playerLaser].classList.remove('laser');
-}
+function shootLaser() {
+
+    for(var i = 0; i < grille.length; i++){
+
+        if(grille[i].classList.contains('laser')) {
+
+            grille[i].classList.remove('laser');
+            laserEn = i - width;
+
+            if (laserEn > 0) {
+
+                grille[laserEn].classList.add('laser');
+
+            };
+
+        };
+
+    };
+
+};
 
 document.addEventListener("keydown", function(event) {
 
@@ -53,60 +64,70 @@ document.addEventListener("keydown", function(event) {
 
         case "ArrowLeft":
 
-            moveLaser();
-
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace -= 1;
+            playerLaser -= 1;
 
             if (playerPlace < 340 || playerPlace == 359 || playerPlace == 379) {
 
                 playerPlace += 1;
+                playerLaser += 1;
 
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
         
         case "ArrowRight":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace += 1;
+            playerLaser += 1;
 
             if (playerPlace > 399 || playerPlace == 360 || playerPlace == 380) {
 
                 playerPlace -= 1;
+                playerLaser -= 1;
 
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
 
         case "ArrowUp":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace -= 20;
+            playerLaser -= 20;
 
             if (playerPlace < 340) {
 
                 playerPlace += 20;
+                playerLaser += 20;
 
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
 
         case "ArrowDown":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace += 20;
+            playerLaser += 20;
 
             if (playerPlace > 399) {
 
                 playerPlace -= 20;
+                playerLaser -= 20;
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
+
+        case "Space":
+
+            grille[playerLaser-20].classList.add('laser');
 
     };
     
@@ -118,7 +139,6 @@ function deleteInvaders(){
         ennemis[aliens[i]].classList.remove("alien")
     }
 }
-
 
 function AlienRight(){
     deleteInvaders()
