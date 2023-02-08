@@ -133,6 +133,8 @@ document.addEventListener("keydown", function(event) {
     
 });
 
+setInterval(shootLaser, 100);
+
 /* Mouvement Ennemis */
 function deleteInvaders(){
     for(let i = 0; i < aliens.length; i++){
