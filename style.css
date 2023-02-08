@@ -67,10 +67,6 @@ h3 {
 
 .laser {
 
-    border-left: 4px solid orange;
-    display: block;
-    height: 100px;
-    margin: 0 auto;
-    width: 1px;
+    background-color: orange;
 
 }
