@@ -17,8 +17,6 @@ grille[playerPlace].classList.add('tireur');
 
 /* Ennemis */
 
-const ennemis = Array.from(document.querySelectorAll('.grille div'));
-
 const aliens = [
     0,1,2,3,4,5,6,7,8,9,10,11,
     20,21,22,23,24,25,26,27,28,29,30,31,
@@ -27,7 +25,7 @@ const aliens = [
 
 function draw(){
     for(let i = 0; i < aliens.length; i++){
-        ennemis[aliens[i]].classList.add("alien")
+        grille[aliens[i]].classList.add("alien")
     }
 }
 draw()
@@ -138,7 +136,7 @@ setInterval(shootLaser, 100);
 /* Mouvement Ennemis */
 function deleteInvaders(){
     for(let i = 0; i < aliens.length; i++){
-        ennemis[aliens[i]].classList.remove("alien")
+        grille[aliens[i]].classList.remove("alien")
     }
 }
 
@@ -147,7 +145,7 @@ function AlienRight(){
 
     for(let i = 0; i < aliens.length; i++){
         aliens[i] += 1;
-        ennemis[aliens[i]].classList.add("alien");
+        grille[aliens[i]].classList.add("alien");
     }
 }
 
@@ -156,7 +154,7 @@ function AlienLeft(){
 
     for(let i = 0; i < aliens.length; i++){
         aliens[i] -= 1;
-        ennemis[aliens[i]].classList.add("alien");
+        grille[aliens[i]].classList.add("alien");
     }
 }
 
@@ -165,7 +163,7 @@ function AlienDown(){
 
     for(let i = 0; i < aliens.length; i++){
         aliens[i] += 20;
-        ennemis[aliens[i]].classList.add("alien");
+        grille[aliens[i]].classList.add("alien");
     }
 }
 
