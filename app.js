@@ -89,5 +89,22 @@ document.addEventListener("keydown", function(event) {
             break;
 
     };
-
+    
 });
+
+/* Ennemis */
+
+const alien = Array.from(document.querySelectorAll('.grille div'));
+
+const aliens = [
+    0,1,2,3,4,5,6,7,8,9,10,11,
+    20,21,22,23,24,25,26,27,28,29,30,31,
+    40,41,42,43,44,45,46,47,48,49,50,51
+]
+
+function draw(){
+    for(let i = 0; i < aliens.length; i++){
+        alien[aliens[i]].classList.add("alien")
+    }
+}
+draw()
