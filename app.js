@@ -1,8 +1,8 @@
 const grid = document.querySelector('.grille');
-var playerPlace = 389;
-var playerLaser = playerPlace;
-var width;
-var height;
+let playerPlace = 389;
+let playerLaser = playerPlace;
+var width = 20;
+var height = 20;
 
 for (var i = 0; i < 400 ; i++) {
 
@@ -17,14 +17,28 @@ player[playerPlace].classList.add('tireur');
 
 const laser = Array.from(document.querySelectorAll('.grille div'));
 
-function moveLaser() {
-    laser[playerLaser].classList.add('laser');
-    while (playerLaser > 20) {
+function shootLaser() {
+
+    let playerLaser = playerPlace;
+
+    function moveLaser() {
+
         laser[playerLaser].classList.remove('laser');
         playerLaser -= 20;
+
+        if (playerLaser < 0) {
+
+            clearInterval(laserPrime);
+
+        };
+
         laser[playerLaser].classList.add('laser');
-    }
-}
+
+    };
+
+    let laserPrime = setInterval(moveLaser, 150);
+
+};
 
 document.addEventListener("keydown", function(event) {
 
@@ -95,7 +109,7 @@ document.addEventListener("keydown", function(event) {
 
         case "Space":
 
-            moveLaser();
+            shootLaser();
 
     };
 
