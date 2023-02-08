@@ -11,32 +11,28 @@ for (var i = 0; i < 400 ; i++) {
 
 };
 
-const player = Array.from(document.querySelectorAll('.grille div'));
+const grille = Array.from(document.querySelectorAll('.grille div'));
 
-player[playerPlace].classList.add('tireur');
-
-const laser = Array.from(document.querySelectorAll('.grille div'));
+grille[playerPlace].classList.add('tireur');
 
 function shootLaser() {
 
-    let playerLaser = playerPlace;
+    for(var i = 0; i < grille.length; i++){
 
-    function moveLaser() {
+        if(grille[i].classList.contains('laser')) {
 
-        laser[playerLaser].classList.remove('laser');
-        playerLaser -= 20;
+            grille[i].classList.remove('laser');
+            laserEn = i - width;
 
-        if (playerLaser < 0) {
+            if (laserEn > 0) {
 
-            clearInterval(laserPrime);
+                grille[laserEn].classList.add('laser');
+
+            };
 
         };
 
-        laser[playerLaser].classList.add('laser');
-
     };
-
-    let laserPrime = setInterval(moveLaser, 150);
 
 };
 
@@ -46,7 +42,7 @@ document.addEventListener("keydown", function(event) {
 
         case "ArrowLeft":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace -= 1;
             playerLaser -= 1;
 
@@ -57,12 +53,12 @@ document.addEventListener("keydown", function(event) {
 
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
         
         case "ArrowRight":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace += 1;
             playerLaser += 1;
 
@@ -73,12 +69,12 @@ document.addEventListener("keydown", function(event) {
 
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
 
         case "ArrowUp":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace -= 20;
             playerLaser -= 20;
 
@@ -89,12 +85,12 @@ document.addEventListener("keydown", function(event) {
 
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
 
         case "ArrowDown":
 
-            player[playerPlace].classList.remove('tireur');
+            grille[playerPlace].classList.remove('tireur');
             playerPlace += 20;
             playerLaser += 20;
 
@@ -104,12 +100,12 @@ document.addEventListener("keydown", function(event) {
                 playerLaser -= 20;
             };
 
-            player[playerPlace].classList.add('tireur');
+            grille[playerPlace].classList.add('tireur');
             break;
 
         case "Space":
 
-            shootLaser();
+            grille[playerLaser-20].classList.add('laser');
 
     };
     
@@ -120,14 +116,23 @@ document.addEventListener("keydown", function(event) {
 const alien = Array.from(document.querySelectorAll('.grille div'));
 
 const aliens = [
+
     0,1,2,3,4,5,6,7,8,9,10,11,
     20,21,22,23,24,25,26,27,28,29,30,31,
     40,41,42,43,44,45,46,47,48,49,50,51
-]
+
+];
 
 function draw(){
+
     for(let i = 0; i < aliens.length; i++){
-        alien[aliens[i]].classList.add("alien")
-    }
-}
-draw()
+
+        alien[aliens[i]].classList.add("alien");
+
+    };
+
+};
+
+draw();
+
+setInterval(shootLaser, 100);
