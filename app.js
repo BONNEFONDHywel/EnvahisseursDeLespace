@@ -18,26 +18,32 @@ grille[playerPlace].classList.add('tireur');
 /* Ennemis */
 
 const aliens = [
+
     0,1,2,3,4,5,6,7,8,9,10,11,
     20,21,22,23,24,25,26,27,28,29,30,31,
     40,41,42,43,44,45,46,47,48,49,50,51
-]
 
-function draw(){
+];
+
+function draw() {
+
     for(let i = 0; i < aliens.length; i++){
-        grille[aliens[i]].classList.add("alien")
-    }
-}
-draw()
 
+        grille[aliens[i]].classList.add("alien");
 
+    };
+
+};
+
+draw();
 
 /* Laser */
+
 const laser = Array.from(document.querySelectorAll('.grille div'));
 
 function shootLaser() {
 
-    for(var i = 0; i < grille.length; i++){
+    for(var i = 0; i < grille.length; i++) {
 
         if(grille[i].classList.contains('laser')) {
 
@@ -58,7 +64,7 @@ function shootLaser() {
 
 document.addEventListener("keydown", function(event) {
 
-    switch(event.code){
+    switch(event.code) {
 
         case "ArrowLeft":
 
@@ -118,6 +124,7 @@ document.addEventListener("keydown", function(event) {
 
                 playerPlace -= 20;
                 playerLaser -= 20;
+
             };
 
             grille[playerPlace].classList.add('tireur');
@@ -134,61 +141,94 @@ document.addEventListener("keydown", function(event) {
 setInterval(shootLaser, 100);
 
 /* Mouvement Ennemis */
-function deleteInvaders(){
-    for(let i = 0; i < aliens.length; i++){
-        grille[aliens[i]].classList.remove("alien")
-    }
-}
 
-function AlienRight(){
-    deleteInvaders()
+function deleteInvaders() {
 
-    for(let i = 0; i < aliens.length; i++){
+    for(let i = 0; i < aliens.length; i++) {
+
+        grille[aliens[i]].classList.remove("alien");
+
+    };
+
+};
+
+function AlienRight() {
+
+    deleteInvaders();
+
+    for(let i = 0; i < aliens.length; i++) {
+
         aliens[i] += 1;
         grille[aliens[i]].classList.add("alien");
-    }
-}
 
-function AlienLeft(){
-    deleteInvaders()
+    };
+
+};
+
+function AlienLeft() {
+
+    deleteInvaders();
 
     for(let i = 0; i < aliens.length; i++){
+
         aliens[i] -= 1;
         grille[aliens[i]].classList.add("alien");
-    }
-}
 
-function AlienDown(){
-    deleteInvaders()
+    };
+
+};
+
+function AlienDown() {
+
+    deleteInvaders();
 
     for(let i = 0; i < aliens.length; i++){
+
         aliens[i] += 20;
         grille[aliens[i]].classList.add("alien");
-    }
-}
+
+    };
+
+};
 
 
 let direction = "right";
 
 function MoveAlien() {
+
     if (direction === "right") {
+
         AlienRight();
+
         if (aliens.some(alien => (alien + 1) % width === 0)) {
+
             direction = "left";
+
             setTimeout(() => {
+
                 AlienDown();
+
             }, 400);
-        }
+        };
 
     } else {
-        AlienLeft();
-        if (aliens.some(alien => alien % width === 0)) {
-            direction = "right";
-            setTimeout(() => {
-                AlienDown();
-            }, 400);
-        }
-    }
-}
 
-let aliensId = setInterval(MoveAlien, 800)
+        AlienLeft();
+
+        if (aliens.some(alien => alien % width === 0)) {
+
+            direction = "right";
+
+            setTimeout(() => {
+
+                AlienDown();
+
+            }, 400);
+
+        };
+
+    };
+    
+};
+
+let aliensId = setInterval(MoveAlien, 800);
