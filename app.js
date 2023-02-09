@@ -253,12 +253,12 @@ function checkForCollision() {
             clearInterval(laserID);
             clearInterval(aliensId);
             showLoseScreen();
-
+            
         };
 
     };
 
-    for (let i = 0; i < aliens.length; i++) {
+    for (let i = 1; i < aliens.length; i++) {
 
         if (aliens[i] > 380) {
 
@@ -272,17 +272,20 @@ function checkForCollision() {
 
 };
 
-function checkVictory() {
+let victory = false;
 
-    if (!grille.some(grid => grid.classList.contains("alien"))) {
-
+winInterval = setInterval(function() {
+    if (!victory && !grille.some(grid => grid.classList.contains("alien"))) {
         clearInterval(laserID);
         clearInterval(aliensId);
         showWinScreen();
-
-    };
-
-};
+        victory = true;
+        clearInterval(winInterval);
+    }
+    if (!victory && aliens.length === 0 && !gameStopped) {
+        clearInterval(winInterval);
+    }
+  }, 100);
 
 setInterval(checkVictory, 100);
 
@@ -327,7 +330,7 @@ function shootLaser() {
 function showWinScreen() {
 
     let winScreen = document.createElement("div");
-    winScreen.innerHTML = "Congratulations, you won!<br><br>" +
+    winScreen.innerHTML = "Bien joué, tu as gagné !<br><br>" +
       "<button onclick='location.reload();'>Replay</button>" +
       "<button onclick='window.close();'>Quit</button>";
     document.body.appendChild(winScreen);
@@ -337,7 +340,7 @@ function showWinScreen() {
 function showLoseScreen() {
 
     let loseScreen = document.createElement("div");
-    loseScreen.innerHTML = "Sorry, you lost.<br><br>" +
+    loseScreen.innerHTML = "Tu as perdu !<br><br>" +
       "<button onclick='location.reload();'>Replay</button>" +
       "<button onclick='window.close();'>Quit</button>";
     document.body.appendChild(loseScreen);
