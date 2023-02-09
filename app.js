@@ -62,83 +62,89 @@ function shootLaser() {
 
 };
 
-document.addEventListener("keydown", function(event) {
+function move() {
 
-    switch(event.code) {
+    document.addEventListener("keydown", function(event) {
 
-        case "ArrowLeft":
+        switch(event.code) {
 
-            grille[playerPlace].classList.remove('tireur');
-            playerPlace -= 1;
-            playerLaser -= 1;
+            case "ArrowLeft":
 
-            if (playerPlace < 340 || playerPlace == 359 || playerPlace == 379) {
-
-                playerPlace += 1;
-                playerLaser += 1;
-
-            };
-
-            grille[playerPlace].classList.add('tireur');
-            break;
-        
-        case "ArrowRight":
-
-            grille[playerPlace].classList.remove('tireur');
-            playerPlace += 1;
-            playerLaser += 1;
-
-            if (playerPlace > 399 || playerPlace == 360 || playerPlace == 380) {
-
+                grille[playerPlace].classList.remove('tireur');
                 playerPlace -= 1;
                 playerLaser -= 1;
 
-            };
+                if (playerPlace < 340 || playerPlace == 359 || playerPlace == 379) {
 
-            grille[playerPlace].classList.add('tireur');
-            break;
+                    playerPlace += 1;
+                    playerLaser += 1;
 
-        case "ArrowUp":
+                };
 
-            grille[playerPlace].classList.remove('tireur');
-            playerPlace -= 20;
-            playerLaser -= 20;
+                grille[playerPlace].classList.add('tireur');
+                break;
+            
+            case "ArrowRight":
 
-            if (playerPlace < 340) {
+                grille[playerPlace].classList.remove('tireur');
+                playerPlace += 1;
+                playerLaser += 1;
 
-                playerPlace += 20;
-                playerLaser += 20;
+                if (playerPlace > 399 || playerPlace == 360 || playerPlace == 380) {
 
-            };
+                    playerPlace -= 1;
+                    playerLaser -= 1;
 
-            grille[playerPlace].classList.add('tireur');
-            break;
+                };
 
-        case "ArrowDown":
+                grille[playerPlace].classList.add('tireur');
+                break;
 
-            grille[playerPlace].classList.remove('tireur');
-            playerPlace += 20;
-            playerLaser += 20;
+            case "ArrowUp":
 
-            if (playerPlace > 399) {
-
+                grille[playerPlace].classList.remove('tireur');
                 playerPlace -= 20;
                 playerLaser -= 20;
 
-            };
+                if (playerPlace < 340) {
 
-            grille[playerPlace].classList.add('tireur');
-            break;
+                    playerPlace += 20;
+                    playerLaser += 20;
 
-        case "Space":
+                };
 
-            grille[playerLaser-20].classList.add('laser');
+                grille[playerPlace].classList.add('tireur');
+                break;
 
-    };
-    
-});
+            case "ArrowDown":
 
-setInterval(shootLaser, 100);
+                grille[playerPlace].classList.remove('tireur');
+                playerPlace += 20;
+                playerLaser += 20;
+
+                if (playerPlace > 399) {
+
+                    playerPlace -= 20;
+                    playerLaser -= 20;
+
+                };
+
+                grille[playerPlace].classList.add('tireur');
+                break;
+
+            case "Space":
+
+                grille[playerLaser-20].classList.add('laser');
+
+        };
+        
+    });
+
+};
+
+move();
+
+let laserID = setInterval(shootLaser, 100);
 
 /* Mouvement Ennemis */
 
@@ -209,6 +215,7 @@ function MoveAlien() {
                 AlienDown();
 
             }, 400);
+            
         };
 
     } else {
@@ -232,3 +239,66 @@ function MoveAlien() {
 };
 
 let aliensId = setInterval(MoveAlien, 800);
+
+function checkForCollision() {
+
+    for (let i = 0; i < aliens.length; i++) {
+
+        if (playerPlace === aliens[i]) {
+
+            clearInterval(laserID);
+            clearInterval(aliensId);
+            alert("Game Over");
+
+        };
+
+    };
+
+    for (let i = 0; i < aliens.length; i++) {
+
+        if (aliens[i] > 380) {
+
+            clearInterval(laserID);
+            clearInterval(aliensId);
+            alert("Game Over");
+
+        };
+
+    };
+
+};
+
+let checkCollisionID = setInterval(checkForCollision, 100);
+
+function shootLaser() {
+
+    for (var i = 0; i < grille.length; i++) {
+
+        if (grille[i].classList.contains('laser')) {
+
+            grille[i].classList.remove('laser');
+            laserEn = i - width;
+
+            if (laserEn > -1) {
+
+                grille[laserEn].classList.add('laser');
+
+                // Check if the laser has collided with an alien
+
+                if (aliens.includes(laserEn)) {
+
+                    grille[laserEn].classList.remove('alien');
+                    grille[laserEn].classList.remove('laser');
+
+                    // Remove the alien from the aliens array
+                    aliens.splice(aliens.indexOf(laserEn), 1);
+
+                };
+
+            };
+            
+        };
+
+    };
+
+};
