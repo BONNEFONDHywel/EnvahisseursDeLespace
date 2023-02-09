@@ -332,9 +332,9 @@ function showWinScreen() {
       "<button onclick='window.close();'>Quit</button>";
     document.body.appendChild(winScreen);
 
-  };
+};
   
-  function showLoseScreen() {
+function showLoseScreen() {
 
     let loseScreen = document.createElement("div");
     loseScreen.innerHTML = "Sorry, you lost.<br><br>" +
@@ -342,4 +342,4 @@ function showWinScreen() {
       "<button onclick='window.close();'>Quit</button>";
     document.body.appendChild(loseScreen);
 
-  };
+};
