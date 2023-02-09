@@ -18,7 +18,7 @@ body {
     align-items: center;
     margin-top: 5em;
   }
-  
+
 
   button {
     padding: 1em 2em;
@@ -100,6 +100,5 @@ h3 {
 
 .laser {
 
-    background-color: orange;
-
+    background: url(ressources/vaisseau.png);
 }
