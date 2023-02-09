@@ -3,6 +3,10 @@ let playerPlace = 389;
 let playerLaser = playerPlace;
 var width = 20;
 var height = 20;
+let score = 0;
+const scoreDisplay = document.querySelector("#score");
+let winInterval;
+let loseInterval;
 
 for (var i = 0; i < 400 ; i++) {
 
@@ -248,7 +252,7 @@ function checkForCollision() {
 
             clearInterval(laserID);
             clearInterval(aliensId);
-            alert("Game Over");
+            showLoseScreen();
 
         };
 
@@ -260,13 +264,27 @@ function checkForCollision() {
 
             clearInterval(laserID);
             clearInterval(aliensId);
-            alert("Game Over");
+            showLoseScreen();
 
         };
 
     };
 
 };
+
+function checkVictory() {
+
+    if (!grille.some(grid => grid.classList.contains("alien"))) {
+
+        clearInterval(laserID);
+        clearInterval(aliensId);
+        showWinScreen();
+
+    };
+
+};
+
+setInterval(checkVictory, 100);
 
 let checkCollisionID = setInterval(checkForCollision, 100);
 
@@ -287,11 +305,14 @@ function shootLaser() {
 
                 if (aliens.includes(laserEn)) {
 
+                    score += 100;
+                    scoreDisplay.textContent = "Score: " + score;
                     grille[laserEn].classList.remove('alien');
                     grille[laserEn].classList.remove('laser');
 
                     // Remove the alien from the aliens array
                     aliens.splice(aliens.indexOf(laserEn), 1);
+
 
                 };
 
@@ -302,3 +323,23 @@ function shootLaser() {
     };
 
 };
+
+function showWinScreen() {
+
+    let winScreen = document.createElement("div");
+    winScreen.innerHTML = "Congratulations, you won!<br><br>" +
+      "<button onclick='location.reload();'>Replay</button>" +
+      "<button onclick='window.close();'>Quit</button>";
+    document.body.appendChild(winScreen);
+
+  };
+  
+  function showLoseScreen() {
+
+    let loseScreen = document.createElement("div");
+    loseScreen.innerHTML = "Sorry, you lost.<br><br>" +
+      "<button onclick='location.reload();'>Replay</button>" +
+      "<button onclick='window.close();'>Quit</button>";
+    document.body.appendChild(loseScreen);
+
+  };
