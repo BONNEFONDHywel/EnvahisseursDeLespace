@@ -1,3 +1,5 @@
+/* Définition de plusieurs variables */
+
 const grid = document.querySelector('.grille');
 let playerPlace = 389;
 let playerLaser = playerPlace;
@@ -8,6 +10,8 @@ const scoreDisplay = document.querySelector("#score");
 let winInterval;
 let loseInterval;
 
+/* Création de la grille */
+
 for (var i = 0; i < 400 ; i++) {
 
     const grids = document.createElement('div');
@@ -16,10 +20,9 @@ for (var i = 0; i < 400 ; i++) {
 };
 
 const grille = Array.from(document.querySelectorAll('.grille div'));
-
 grille[playerPlace].classList.add('tireur');
 
-/* Ennemis */
+/* Création d'ennemis */
 
 const aliens = [
 
@@ -41,7 +44,7 @@ function draw() {
 
 draw();
 
-/* Laser */
+/* Création du laser */
 
 const laser = Array.from(document.querySelectorAll('.grille div'));
 
@@ -65,6 +68,8 @@ function shootLaser() {
     };
 
 };
+
+/* Déplacement du joueur et du laser qui va avec, en utilisant les touches du claviers (flèches directionnelles et espace) */
 
 function move() {
 
@@ -150,7 +155,7 @@ move();
 
 let laserID = setInterval(shootLaser, 100);
 
-/* Mouvement Ennemis */
+/* Déplacements des ennemis */
 
 function deleteInvaders() {
 
@@ -218,7 +223,7 @@ function MoveAlien() {
 
                 AlienDown();
 
-            }, 400);
+            }, 200);
             
         };
 
@@ -234,7 +239,7 @@ function MoveAlien() {
 
                 AlienDown();
 
-            }, 400);
+            }, 200);
 
         };
 
@@ -242,17 +247,23 @@ function MoveAlien() {
     
 };
 
-let aliensId = setInterval(MoveAlien, 800);
+let aliensId = setInterval(MoveAlien, 400);
 
-function checkForCollision() {
+/* Conditions de défaite */
+
+let defeat = false;
+
+loseInterval = setInterval(function() {
 
     for (let i = 0; i < aliens.length; i++) {
 
-        if (playerPlace === aliens[i]) {
+        if (!defeat && playerPlace === aliens[i]) {
 
             clearInterval(laserID);
             clearInterval(aliensId);
             showLoseScreen();
+            defeat = true;
+            clearInterval(loseInterval);
             
         };
 
@@ -260,36 +271,49 @@ function checkForCollision() {
 
     for (let i = 1; i < aliens.length; i++) {
 
-        if (aliens[i] > 380) {
+        if (!defeat && aliens[i] > 380) {
 
             clearInterval(laserID);
             clearInterval(aliensId);
             showLoseScreen();
+            defeat = true;
+            clearInterval(loseInterval);
 
         };
 
     };
 
-};
+}, 100);
+
+setInterval(loseInterval, 100);
+
+/* Conditions de victoire */
 
 let victory = false;
 
 winInterval = setInterval(function() {
+
     if (!victory && !grille.some(grid => grid.classList.contains("alien"))) {
+
         clearInterval(laserID);
         clearInterval(aliensId);
         showWinScreen();
         victory = true;
         clearInterval(winInterval);
+
     }
+
     if (!victory && aliens.length === 0 && !gameStopped) {
+
         clearInterval(winInterval);
+
     }
-  }, 100);
 
-setInterval(checkVictory, 100);
+}, 100);
 
-let checkCollisionID = setInterval(checkForCollision, 100);
+setInterval(winInterval, 100);
+
+/* Collision entre l'ennemi et le laser */
 
 function shootLaser() {
 
@@ -304,16 +328,12 @@ function shootLaser() {
 
                 grille[laserEn].classList.add('laser');
 
-                // Check if the laser has collided with an alien
-
                 if (aliens.includes(laserEn)) {
 
                     score += 100;
                     scoreDisplay.textContent = "Score: " + score;
                     grille[laserEn].classList.remove('alien');
                     grille[laserEn].classList.remove('laser');
-
-                    // Remove the alien from the aliens array
                     aliens.splice(aliens.indexOf(laserEn), 1);
 
 
@@ -327,6 +347,8 @@ function shootLaser() {
 
 };
 
+/* Fonction pour la victoire */
+
 function showWinScreen() {
 
     let winScreen = document.createElement("div");
@@ -336,6 +358,8 @@ function showWinScreen() {
     document.body.appendChild(winScreen);
 
 };
+
+/* Fonction pour la défaite */
   
 function showLoseScreen() {
 
