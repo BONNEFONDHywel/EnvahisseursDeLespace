@@ -152,7 +152,6 @@ function move() {
 };
 
 move();
-
 let laserID = setInterval(shootLaser, 100);
 
 /* Déplacements des ennemis */
