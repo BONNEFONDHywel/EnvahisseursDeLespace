@@ -1,23 +1,39 @@
 <!DOCTYPE html>
 
-    <html lang="en">
+  <html lang="en">
 
-        <head>
+    <head>
 
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Document</title>
-            <link rel="stylesheet" href="style.css">
+        <meta charset="UTF-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="style.css">
+        <title>Space Invader</title>
 
-        </head>
+    </head>
 
-        <body>
+    <body>
 
-            <div id="score">Score : 0</div>
-            <div class="grille"></div>
-            <script src="app.js"></script>
-            <script src="test.js"></script>
+      <h1>Space Invaders</h1>
 
-        </body>
+      <div class="game-container">
+          
+        <p>Bienvenue dans notre Space Invaders(presque fini) !</p>
+        <p>Venez appuyer sur le bouton ci-dessous pour commencer la partie.</p>
+        <button id="jouer-button">Start</button>
 
-    </html>
+        <script>
+
+          document.getElementById("jouer-button").addEventListener("click", function() {
+
+            window.location.href = "jeu.html";
+
+          });
+
+        </script>
+
+      </div>
+
+    </body>
+
+  </html>
