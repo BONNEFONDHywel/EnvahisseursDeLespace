@@ -354,7 +354,7 @@ function showWinScreen() {
     let winScreen = document.createElement("div");
     winScreen.innerHTML = "Bien joué, tu as gagné !<br><br>" +
       "<button onclick='location.reload();'>Replay</button>" +
-      "<button onclick='window.close();'>Quit</button>";
+      "<button onclick='window.history.back();'>Quit</button>";
     document.body.appendChild(winScreen);
 
 };
@@ -366,7 +366,7 @@ function showLoseScreen() {
     let loseScreen = document.createElement("div");
     loseScreen.innerHTML = "Tu as perdu !<br><br>" +
       "<button onclick='location.reload();'>Replay</button>" +
-      "<button onclick='window.close();'>Quit</button>";
+      "<button onclick='window.history.back();'>Quit</button>";
     document.body.appendChild(loseScreen);
 
 };
