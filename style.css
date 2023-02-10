@@ -1,11 +1,14 @@
 body {
 
-    background-color: black;
+    background-image: url(/ressources/spacecontainers.gif);
+    background-size: cover;
+    background-position: center;
     color: white;
     font-family: Arial, sans-serif;
     text-align: center;
 
 }
+
 
 
 h1 {
@@ -109,5 +112,6 @@ h3 {
 .laser {
 
     background: url(ressources/vaisseau.png);
+    align-items: center;
     
 }

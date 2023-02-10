@@ -285,7 +285,6 @@ loseInterval = setInterval(function() {
 
 }, 100);
 
-setInterval(loseInterval, 100);
 
 /* Conditions de victoire */
 
@@ -311,7 +310,6 @@ winInterval = setInterval(function() {
 
 }, 100);
 
-setInterval(winInterval, 100);
 
 /* Collision entre l'ennemi et le laser */
 
